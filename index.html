@@ -8,10 +8,16 @@
         :root {
             --primary-bg: #281495; 
             --card-bg: #ffffff;
-            --text-main: #2d3748;
-            --text-muted: #718096;
+            --text-main: #061a37;
+            --text-muted: #4a5568;
             --accent-blue: #2b6cb0;
             --danger: #ff4d4d;
+            --highlight: #eef2ff;
+            --highlight-border: #6366f1;
+
+            /* MODIFICA AQUÍ LOS COLORES DEL YES Y NO */
+            --color-yes: #2f855a; /* Verde para Yes */
+            --color-no: #c53030;  /* Rojo para No */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,159 +36,152 @@
             background: var(--card-bg); max-width: 400px; margin: 40px auto; 
             padding: 30px; border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.2); text-align: center; 
         }
-        .login-logo { width: 150px; height: 150px; object-fit: contain; margin-bottom: 20px; border-radius: 50%; }
-        input[type="email"] { width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; margin: 20px 0; font-size: 16px; outline: none; }
-
-        /* --- DASHBOARD ESTRUCTURA --- */
-        .dashboard-container { max-width: 1100px; margin: 0 auto; }
-        
-        /* FILA SUPERIOR (ESCRITORIO) */
-        .top-row { 
-            display: grid; 
-            grid-template-columns: 1.5fr 1fr 1fr 1fr; 
-            gap: 15px; 
-            margin-bottom: 25px; 
+        .login-logo { 
+            width: 220px; height: 220px; object-fit: contain; 
+            margin-bottom: 0px; 
+            border-radius: 50%; 
+        }
+        .login-box h2 { color: var(--text-main); margin-top: 0; margin-bottom: 20px; }
+        input[type="email"] { 
+            width: 100%; padding: 15px; border: 2px solid #e2e8f0; 
+            border-radius: 12px; margin-bottom: 20px; font-size: 16px; outline: none; 
         }
 
+        /* --- DASHBOARD --- */
+        .dashboard-container { max-width: 1100px; margin: 0 auto; }
+        .top-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 15px; margin-bottom: 25px; }
         .card { 
             background: var(--card-bg); border-radius: 20px; padding: 18px; 
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: center;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; 
+            justify-content: center; overflow: hidden;
+        }
+
+        .card-important { border: 2px solid var(--highlight-border); }
+        .translator-badge {
+            background: var(--highlight);
+            color: #3730a3; padding: 6px 10px; border-radius: 8px;
+            font-weight: bold; display: inline-block; margin-top: 5px; font-size: 14px;
         }
         
-        .logout-btn { 
-            background: var(--danger); color: white; border: none; padding: 10px; 
-            border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 13px; margin-top: 10px;
-            transition: background 0.3s;
-        }
-        .logout-btn:hover { background: #cc0000; }
-
-        .stat-label { font-size: 10px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; }
+        .logout-btn { background: var(--danger); color: white; border: none; padding: 10px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 13px; margin-top: 10px; }
+        .stat-label { font-size: 10px; color: #718096; font-weight: 800; text-transform: uppercase; }
         .stat-value { font-size: 18px; font-weight: bold; margin-top: 5px; color: var(--accent-blue); }
 
-        /* --- DISEÑO MÓVIL (OCULTO POR DEFECTO) --- */
+        /* --- MÓVIL --- */
         .mobile-only { display: none; }
-
         @media (max-width: 850px) {
-            .top-row { display: none; } /* Oculta tarjetas de escritorio */
-            .mobile-only { display: block; } /* Muestra elementos de móvil */
-            
+            .top-row { display: none; }
+            .mobile-only { display: block; }
             .profile-mini-card {
                 background: white; border-radius: 20px; padding: 15px; margin-bottom: 15px;
                 display: flex; justify-content: space-between; align-items: center;
                 box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             }
-
             .dropdown-trigger {
                 background: rgba(255,255,255,0.15); color: white; padding: 15px;
                 border-radius: 15px; text-align: center; font-weight: bold;
-                border: 1px solid rgba(255,255,255,0.3); cursor: pointer; width: 100%;
-                margin-bottom: 20px;
+                border: 1px solid rgba(255,255,255,0.3); width: 100%; margin-bottom: 20px; cursor: pointer;
             }
-
             .dropdown-content {
                 background: white; border-radius: 15px; padding: 15px;
                 margin-top: -15px; margin-bottom: 20px; display: none;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             }
-            .dropdown-item { padding: 10px 0; border-bottom: 1px solid #eee; }
-            .dropdown-item:last-child { border-bottom: none; }
+            .city-content { display: none; }
+            .city-banner { cursor: pointer; }
+            .city-banner::after { content: ' ▼'; font-size: 10px; float: right; opacity: 0.7; }
+            .city-card.active .city-content { display: block; }
+            .city-card.active .city-banner::after { content: ' ▲'; }
         }
 
-        /* --- CIUDADES --- */
+        /* --- CIUDADES Y ACTIVIDADES --- */
         .cities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .city-card { background: var(--card-bg); border-radius: 24px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .city-banner { padding: 15px; color: white; font-weight: bold; text-align: center; }
+        .city-banner { padding: 18px; color: white; font-weight: bold; text-align: center; text-transform: uppercase; }
         .banner-cali { background: #ef4444; }
         .banner-manizales { background: #3b82f6; }
-        .banner-bogota { background: #1e3a8a; }
-        .city-content { padding: 20px; }
-        .activity-row { display: flex; margin-bottom: 8px; font-size: 14px; color: #4a5568; align-items: center; }
-        .check { color: #10b981; margin-right: 8px; font-weight: bold; }
+        .banner-bogota { background: #2044a5; }
+        .city-content { padding: 20px; border-top: 1px solid #f0f0f0; }
+        
+        .activity-item { margin-bottom: 18px; border-left: 3px solid #cbd5e0; padding-left: 12px; }
+        .activity-title { font-weight: bold; color: #051a39; font-size: 14px; display: block; margin-bottom: 4px; }
+        
+        /* ESTILOS DE VALORES CON SALTO DE LÍNEA */
+        
+        /* ESTILOS DE VALORES CON SALTO DE LÍNEA Y ESPACIADO */
+
+.val-yes, .val-no, .val-default { 
+    display: block;      /* Mantiene el salto de línea */
+    margin-top: 11px;     /* AQUÍ DAS EL ESPACIO con la clase de arriba */
+    font-size: 15px; 
+    font-weight: 800; 
+}
+.val-yes { color: var(--color-yes); }
+.val-no { color: var(--color-no); }
+.val-default { color: #4a5568; }
 
         .btn-main { background: #2d3748; color: white; border: none; padding: 16px; width: 100%; border-radius: 18px; font-weight: bold; cursor: pointer; }
 
-        /* --- MODAL --- */
         .modal { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 2000; }
-        .modal-content { background: white; width: 98%; height: 95%; border-radius: 15px; position: relative; }
-        .close-pdf-btn { position: absolute; top: 10px; right: 10px; background: var(--danger); color: white; border: none; width: 35px; height: 35px; border-radius: 50%; z-index: 2100; cursor: pointer; }
-        iframe { width: 100%; height: 100%; border: none; }
-
-        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-bg); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 15px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .modal-content { background: white; width: 95%; height: 90%; border-radius: 15px; position: relative; }
+        .close-pdf-btn { position: absolute; top: -15px; right: -15px; background: var(--danger); color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+        iframe { width: 100%; height: 100%; border: none; border-radius: 15px; }
     </style>
 </head>
 <body>
 
     <div id="loginSection" class="login-box">
-        <img src="https://www-s3-live.kent.edu/s3fs-root/s3fs-public/logo-color_2.png?VersionId=OcKaWld8QObkWdnw5xk7jKvg2ZESYU6q" alt="Logo STEM" class="login-logo">
+        <img src="https://www-s3-live.kent.edu/s3fs-root/s3fs-public/logo-color_2.png?VersionId=OcKaWld8QObkWdnw5xk7jKvg2ZESYU6q" alt="Logo" class="login-logo">
         <h2>STEM Tour 2026</h2>
-        <input type="email" id="emailInput" placeholder="tu.email@universidad.edu">
-        <div id="loader" class="loader hidden"></div>
+        <input type="email" id="emailInput" placeholder="Ingresa tu correo institucional">
         <button class="btn-main" style="background:var(--primary-bg)" onclick="startLogin()">Ingresar</button>
-        <p id="errorMsg" style="color:var(--danger); margin-top:15px; display:none;">Email no encontrado.</p>
+        <p id="errorMsg" style="color:var(--danger); margin-top:15px; display:none;">Correo no registrado.</p>
     </div>
 
     <div id="dashboardSection" class="dashboard-container hidden">
-        
         <div class="mobile-only">
             <div class="profile-mini-card">
-                <div>
-                    <h3 id="mobileUserName" style="font-size: 15px;">-</h3>
-                    <p id="mobileUserInst" style="font-size: 11px; color: var(--text-muted);"></p>
+                <div style="max-width: 70%;">
+                    <h3 id="mobileUserName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 16px; color: #061a37;">-</h3>
+                    <p id="mobileUserEmail" style="font-size: 12px; color: var(--accent-blue); font-weight: 600; margin: 2px 0;"></p>
+                    <p id="mobileUserInst" style="font-size: 11px; color: #718096;"></p>
                 </div>
-                <button class="logout-btn" style="margin:0; padding: 6px 12px;" onclick="location.reload()">Salir</button>
+                <button class="logout-btn" style="margin:0;" onclick="location.reload()">Salir</button>
             </div>
-
-            <button class="dropdown-trigger" onclick="toggleDropdown()">ℹ️ Información del Perfil ▼</button>
+            <button class="dropdown-trigger" onclick="toggleDropdown('infoDropdown')">ℹ️ Ver Detalles del Tour ▼</button>
             <div id="infoDropdown" class="dropdown-content">
-                <div class="dropdown-item">
-                    <p class="stat-label">Ciudades Activas</p>
+                <div style="padding: 10px 0; border-bottom: 1px solid #eee;">
+                    <p class="stat-label">Ciudades</p>
                     <p class="stat-value" id="mStatCity">0</p>
                 </div>
-                <div class="dropdown-item">
-                    <p class="stat-label">Servicio Traductor</p>
-                    <p class="stat-value" id="mStatTrans">Buscando...</p>
-                </div>
-                <div class="dropdown-item">
-                    <p class="stat-label">Email registrado</p>
-                    <p id="mStatEmail" style="font-size: 13px; margin-top:5px;">-</p>
+                <div style="padding: 10px 0;">
+                    <p class="stat-label">🗣️ Traductor Asignado</p>
+                    <div id="mStatTrans" class="translator-badge">-</div>
                 </div>
             </div>
         </div>
 
         <div class="top-row">
             <div class="card">
-                <p class="stat-label">Perfil</p>
-                <h2 id="userName" style="font-size: 16px; margin-top:5px;">-</h2>
-                <p id="userEmail" style="font-size: 11px; color: var(--primary-bg); font-weight: bold;"></p>
+                <p class="stat-label">Usuario</p>
+                <h2 id="userName" style="font-size: 15px; margin: 5px 0; color: #061a37;">-</h2>
+                <p id="userEmailLabel" style="font-size: 11px; color: var(--accent-blue); margin-bottom: 5px;"></p>
                 <button class="logout-btn" onclick="location.reload()">Cerrar Sesión</button>
             </div>
-            <div class="card">
-                <p class="stat-label">Ciudades</p>
-                <div class="stat-value" id="statCityCount">0</div>
-            </div>
-            <div class="card">
-                <p class="stat-label">Institución</p>
-                <div class="stat-value" id="userInstShort" style="font-size: 13px;">-</div>
-            </div>
-            <div class="card">
-                <p class="stat-label">Traductor</p>
-                <div class="stat-value" id="translatorStatus">Buscando...</div>
+            <div class="card"><p class="stat-label">Ciudades</p><div class="stat-value" id="statCityCount">0</div></div>
+            <div class="card"><p class="stat-label">Institución</p><div class="stat-value" id="userInstShort" style="font-size: 12px;">-</div></div>
+            <div class="card card-important">
+                <p class="stat-label">🗣️ Traductor Asignado</p>
+                <div id="translatorStatus" class="translator-badge">No asignado</div>
             </div>
         </div>
 
         <div id="itineraryContent" class="cities-grid"></div>
-
-        <div style="margin: 30px auto; text-align: center;">
-            <button class="btn-main" onclick="openPdf(1)">📖 Guía General de Actividades (PDF)</button>
-        </div>
+        <div style="margin: 30px auto; text-align: center;"><button class="btn-main" onclick="openPdf(1)">📖 Guía de Actividades (PDF)</button></div>
     </div>
 
     <div id="pdfModal" class="modal hidden">
-        <div class="modal-content">
-            <button class="close-pdf-btn" onclick="closeModal()">✕</button>
-            <iframe id="pdfFrame" src=""></iframe>
-        </div>
+        <div class="modal-content"><button class="close-pdf-btn" onclick="closeModal()">✕</button><iframe id="pdfFrame" src=""></iframe></div>
     </div>
 
 <script>
@@ -192,9 +191,15 @@
 
     let userData = null;
 
-    function toggleDropdown() {
-        const content = document.getElementById('infoDropdown');
+    function toggleDropdown(id) {
+        const content = document.getElementById(id);
         content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleCity(element) {
+        if (window.innerWidth <= 850) {
+            element.parentElement.classList.toggle('active');
+        }
     }
 
     async function fetchTable(sheetId, query, sheetName = "") {
@@ -207,99 +212,95 @@
     async function startLogin() {
         const email = document.getElementById('emailInput').value.toLowerCase().trim();
         if(!email) return;
-        document.getElementById('loader').classList.remove('hidden');
-        document.getElementById('errorMsg').style.display = 'none';
-        
         try {
             const regTable = await fetchTable(SHEET_REGISTRO, "SELECT A, C, D, F, K, L, M");
             const row = regTable.rows.find(r => r.c[3]?.v?.toLowerCase().trim() === email);
-
-            if (!row) {
-                document.getElementById('errorMsg').style.display = 'block';
-                document.getElementById('loader').classList.add('hidden');
-                return;
-            }
-
-            userData = {
-                inst: row.c[0].v,
-                name: row.c[2].v,
-                email: email,
-                cities: { Cali: row.c[4]?.v === 'Yes', Manizales: row.c[5]?.v === 'Yes', Bogota: row.c[6]?.v === 'Yes' }
+            if (!row) { document.getElementById('errorMsg').style.display='block'; return; }
+            
+            userData = { 
+                inst: row.c[0]?.v || "No disponible", 
+                name: row.c[2]?.v || "Usuario", 
+                email: email, 
+                cities: { 
+                    Cali: row.c[4]?.v === 'Yes', 
+                    Manizales: row.c[5]?.v === 'Yes', 
+                    Bogota: row.c[6]?.v === 'Yes' 
+                } 
             };
             renderDashboard(email);
-        } catch (e) { 
-            alert("Error de conexión"); 
-            document.getElementById('loader').classList.add('hidden'); 
-        }
+        } catch (e) { alert("Error al conectar."); }
     }
 
     async function renderDashboard(email) {
         document.getElementById('loginSection').classList.add('hidden');
         document.getElementById('dashboardSection').classList.remove('hidden');
         
-        // Cargar datos en Desktop
         document.getElementById('userName').innerText = userData.name;
-        document.getElementById('userEmail').innerText = userData.email;
+        document.getElementById('userEmailLabel').innerText = userData.email;
         document.getElementById('userInstShort').innerText = userData.inst;
-        
-        // Cargar datos en Móvil
         document.getElementById('mobileUserName').innerText = userData.name;
+        document.getElementById('mobileUserEmail').innerText = userData.email; 
         document.getElementById('mobileUserInst').innerText = userData.inst;
-        document.getElementById('mStatEmail').innerText = userData.email;
 
         const container = document.getElementById('itineraryContent');
         container.innerHTML = "";
-
+        
         const citySpecs = [
-            { name: 'Cali', class: 'banner-cali', cols: [7, 8, 9], transCol: 10 }, 
-            { name: 'Manizales', class: 'banner-manizales', cols: [7, 8, 9, 10, 11], transCol: 5 }, 
-            { name: 'Bogota', class: 'banner-bogota', cols: [7, 8], transCol: 9 }, 
+            { name: 'Cali', class: 'banner-cali', cols: [11, 7, 8, 9, 12], transCol: 10 }, 
+            { name: 'Manizales', class: 'banner-manizales', cols: [7, 8, 10, 11, 20], transCol: 12 }, 
+            { name: 'Bogota', class: 'banner-bogota', cols: [18, 7, 8, 20, 21], transCol: 9 }, 
         ];
 
-        let count = 0;
-        let globalTranslator = "No asignado";
+        let cityCount = 0;
+        let finalTranslator = "No asignado";
 
         for (const city of citySpecs) {
             if (userData.cities[city.name]) {
-                count++;
+                cityCount++;
                 const cityTable = await fetchTable(SHEET_COORDINACION, "SELECT *", city.name);
                 const userRow = cityTable.rows.find(r => r.c[5]?.v?.toLowerCase().trim() === email);
-
+                
                 if (userRow) {
-                    if (globalTranslator === "No asignado" || globalTranslator === "") {
-                        globalTranslator = userRow.c[city.transCol]?.v || "No asignado";
-                    }
+                    if (userRow.c[city.transCol]?.v) finalTranslator = userRow.c[city.transCol].v;
+
                     let actHtml = "";
                     city.cols.forEach(colIdx => {
-                        if (userRow.c[colIdx]?.v === "Yes") {
-                            const label = cityTable.cols[colIdx].label.replace(/\b(Yes|No)\b/gi, '').trim();
-                            actHtml += `<div class="activity-row"><span class="check">✓</span>${label}</div>`;
+                        const cellVal = userRow.c[colIdx]?.v;
+                        const cellText = cellVal ? cellVal.toString().trim() : "";
+
+                        if (cellText !== "") {
+                            let title = cityTable.cols[colIdx].label || "Actividad";
+                            title = title.replace(/\b(Yes|No)\b/gi, '').trim(); 
+                            
+                            let colorClass = "val-default";
+                            if(cellText.toLowerCase() === 'yes') colorClass = "val-yes";
+                            if(cellText.toLowerCase() === 'no') colorClass = "val-no";
+
+                            actHtml += `
+                                <div class="activity-item">
+                                    <span class="activity-title">${title}</span>
+                                    <span class="${colorClass}">${cellText}</span>
+                                </div>`;
                         }
                     });
+
                     container.innerHTML += `
                         <div class="city-card">
-                            <div class="city-banner ${city.class}">📍 ${city.name}</div>
-                            <div class="city-content">
-                                ${actHtml || '<p style="color:#999; font-size:13px;">Sin actividades adicionales registradas.</p>'}
-                            </div>
+                            <div class="city-banner ${city.class}" onclick="toggleCity(this)">📍 ${city.name}</div>
+                            <div class="city-content">${actHtml || '<p>Sin actividades adicionales.</p>'}</div>
                         </div>`;
                 }
             }
         }
-        document.getElementById('statCityCount').innerText = count;
-        document.getElementById('mStatCity').innerText = count;
-        document.getElementById('translatorStatus').innerText = globalTranslator;
-        document.getElementById('mStatTrans').innerText = globalTranslator;
+        
+        document.getElementById('statCityCount').innerText = cityCount;
+        document.getElementById('mStatCity').innerText = cityCount;
+        document.getElementById('translatorStatus').innerText = `👤 ${finalTranslator}`;
+        document.getElementById('mStatTrans').innerText = `👤 ${finalTranslator}`;
     }
 
-    function openPdf(page) { 
-        document.getElementById('pdfFrame').src = `${PDF_URL_BASE}#page=${page}`; 
-        document.getElementById('pdfModal').classList.remove('hidden'); 
-    }
-    function closeModal() { 
-        document.getElementById('pdfModal').classList.add('hidden'); 
-        document.getElementById('pdfFrame').src = ""; 
-    }
+    function openPdf(p) { document.getElementById('pdfFrame').src = `${PDF_URL_BASE}#page=${p}`; document.getElementById('pdfModal').classList.remove('hidden'); }
+    function closeModal() { document.getElementById('pdfModal').classList.add('hidden'); }
 </script>
 </body>
 </html>
