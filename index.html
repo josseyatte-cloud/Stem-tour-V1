@@ -6,7 +6,7 @@
     <title>Dashboard STEM Tour 2026</title>
     <style>
         :root {
-            --primary-bg: #7c69ef; 
+            --primary-bg: #281495; 
             --card-bg: #ffffff;
             --text-main: #2d3748;
             --text-muted: #718096;
@@ -31,13 +31,12 @@
             padding: 40px; border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.2); text-align: center; 
         }
         
-        /* Estilo del Logo */
         .login-logo {
-            width: 120px;
-            height: 120px;
+            width: 200px;
+            height: 200px;
             object-fit: contain;
             margin-bottom: 20px;
-            border-radius: 50%; /* Opcional: quítalo si el logo no es circular */
+            border-radius: 50%;
         }
 
         .login-box h2 { color: var(--text-main); margin-bottom: 10px; font-size: 24px; }
@@ -55,6 +54,7 @@
         .card { 
             background: var(--card-bg); border-radius: 20px; padding: 20px; 
             box-shadow: 0 8px 15px rgba(0,0,0,0.1); position: relative; 
+            display: flex; flex-direction: column; justify-content: center;
         }
         
         .logout-btn { 
@@ -64,7 +64,7 @@
         }
 
         .stat-label { font-size: 11px; color: var(--text-muted); font-weight: bold; text-transform: uppercase; }
-        .stat-value { font-size: 20px; font-weight: bold; margin-top: 5px; }
+        .stat-value { font-size: 18px; font-weight: bold; margin-top: 5px; color: var(--accent-blue); }
 
         /* --- CIUDADES --- */
         .cities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
@@ -113,24 +113,19 @@
 <body>
 
     <div id="loginSection" class="login-box">
-        <img src="https://yt3.ggpht.com/a/AATXAJwIP0rZA89PCWBWHYBVXr8i15oz39WjuwEbNA=s900-c-k-c0xffffffff-no-rj-mo" alt="Logo STEM" class="login-logo">
-        
+        <img src="https://www-s3-live.kent.edu/s3fs-root/s3fs-public/logo-color_2.png?VersionId=OcKaWld8QObkWdnw5xk7jKvg2ZESYU6q" alt="Logo STEM" class="login-logo">
         <h2>STEM Tour 2026</h2>
         <p>Dashboard de Representantes</p>
-        
         <input type="email" id="emailInput" placeholder="tu.email@universidad.edu">
-        
         <div id="loader" class="loader hidden"></div>
-        
         <button class="btn-main" style="background:var(--primary-bg)" onclick="startLogin()">Ingresar</button>
-        
         <p id="errorMsg" style="color:var(--danger); margin-top:15px; font-weight:600; display:none;">Email no encontrado.</p>
     </div>
 
     <div id="dashboardSection" class="dashboard-container hidden">
         <div class="top-row">
             <div class="card">
-                <button class="logout-btn" onclick="location.reload()">Salir</button>
+                
                 <p class="stat-label">Perfil</p>
                 <h2 id="userName" style="margin-top:5px; font-size: 18px;">-</h2>
                 <p id="userEmail" style="font-size: 11px; color: var(--primary-bg); font-weight: bold;"></p>
@@ -144,9 +139,10 @@
                 <div class="stat-value" id="userInstShort" style="font-size: 13px;">-</div>
             </div>
             <div class="card">
-                <p class="stat-label">Año</p>
-                <div class="stat-value">2026</div>
+                <p class="stat-label">Traductor</p>
+                <div class="stat-value" id="translatorStatus">Buscando...</div>
             </div>
+            <button class="logout-btn" onclick="location.reload()">Salir</button>
         </div>
 
         <div id="itineraryContent" class="cities-grid"></div>
@@ -223,37 +219,45 @@
         container.innerHTML = "";
 
         const citySpecs = [
-            { name: 'Cali', class: 'banner-cali', cols: [7, 8, 9] }, 
-            { name: 'Manizales', class: 'banner-manizales', cols: [7, 8, 9, 10, 11] }, 
-            { name: 'Bogota', class: 'banner-bogota', cols: [7, 8] }
+            { name: 'Cali', class: 'banner-cali', cols: [7, 8, 9], transCol: 10 }, // Columna K
+            { name: 'Manizales', class: 'banner-manizales', cols: [7, 8, 9, 10, 11], transCol: 5 }, // Columna F
+            { name: 'Bogota', class: 'banner-bogota', cols: [7, 8], transCol: 9 }, // Columna J
         ];
 
         let count = 0;
+        let globalTranslator = "No asignado";
+
         for (const city of citySpecs) {
             if (userData.cities[city.name]) {
                 count++;
                 const cityTable = await fetchTable(SHEET_COORDINACION, "SELECT *", city.name);
                 const userRow = cityTable.rows.find(r => r.c[5]?.v?.toLowerCase().trim() === email);
 
-                let actHtml = "";
                 if (userRow) {
+                    // Actualizar estado del traductor (toma el primero que encuentre de las ciudades activas)
+                    if (globalTranslator === "No asignado" || globalTranslator === "") {
+                        globalTranslator = userRow.c[city.transCol]?.v || "No asignado";
+                    }
+
+                    let actHtml = "";
                     city.cols.forEach(colIdx => {
                         if (userRow.c[colIdx]?.v === "Yes") {
                             const title = cleanName(cityTable.cols[colIdx].label);
                             actHtml += `<div class="activity-row"><span class="check">✓</span>${title}</div>`;
                         }
                     });
-                }
 
-                container.innerHTML += `
-                    <div class="city-card">
-                        <div class="city-banner ${city.class}">📍 ${city.name}</div>
-                        <div class="city-content">${actHtml || '<p style="color:#999">No hay actividades adicionales.</p>'}</div>
-                    </div>
-                `;
+                    container.innerHTML += `
+                        <div class="city-card">
+                            <div class="city-banner ${city.class}">📍 ${city.name}</div>
+                            <div class="city-content">${actHtml || '<p style="color:#999">No hay actividades adicionales.</p>'}</div>
+                        </div>
+                    `;
+                }
             }
         }
         document.getElementById('statCityCount').innerText = count;
+        document.getElementById('translatorStatus').innerText = globalTranslator;
     }
 
     function openPdf(page) {
