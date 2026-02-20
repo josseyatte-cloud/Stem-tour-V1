@@ -6,7 +6,7 @@
     <title>STEM Tour 2026 Dashboard</title>
     <style>
         :root {
-            --primary-bg: #281495; 
+            --primary-bg: #0057B8;
             --card-bg: #ffffff;
             --text-main: #061a37;
             --text-muted: #4a5568;
@@ -14,44 +14,44 @@
             --danger: #ff4d4d;
             --highlight: #eef2ff;
             --highlight-border: #6366f1;
-            --color-yes: #2f855a; 
+            --color-yes: #2f855a;
             --color-no: #c53030;  
         }
-
+ 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Segoe UI', system-ui, sans-serif; 
-            background-color: var(--primary-bg); 
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--primary-bg);
             color: var(--text-main);
             min-height: 100vh;
             padding: 20px;
         }
-
+ 
         .hidden { display: none !important; }
-
+ 
         /* --- LOGIN --- */
-        .login-box { 
-            background: var(--card-bg); max-width: 400px; margin: 40px auto; 
-            padding: 30px; border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.2); text-align: center; 
+        .login-box {
+            background: var(--card-bg); max-width: 400px; margin: 40px auto;
+            padding: 30px; border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.2); text-align: center;
         }
         .login-logo { width: 180px; height: 180px; object-fit: contain; border-radius: 50%; margin-bottom: 10px; }
-        input[type="email"] { 
-            width: 100%; padding: 15px; border: 2px solid #e2e8f0; 
-            border-radius: 12px; margin-bottom: 20px; font-size: 16px; outline: none; 
+        input[type="email"] {
+            width: 100%; padding: 15px; border: 2px solid #e2e8f0;
+            border-radius: 12px; margin-bottom: 20px; font-size: 16px; outline: none;
         }
-
+ 
         /* --- DASHBOARD --- */
         .dashboard-container { max-width: 1100px; margin: 0 auto; }
-        
+       
         /* DESKTOP TOP ROW */
         .top-row { display: grid; grid-template-columns: 1.5fr 1fr 1.5fr 1fr; gap: 15px; margin-bottom: 25px; }
         .card { background: var(--card-bg); border-radius: 20px; padding: 20px; box-shadow: 0 8px 15px rgba(0,0,0,0.1); min-height: 140px; }
         .logout-btn { background: var(--danger); color: white; border: none; padding: 12px; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
-
+ 
         .stat-label { font-size: 11px; color: #718096; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
         .stat-value { font-size: 22px; font-weight: bold; color: var(--accent-blue); }
         .user-email-desktop { font-size: 12px; color: var(--accent-blue); margin-bottom: 5px; }
-
+ 
         /* --- CITIES --- */
         .cities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .city-card { background: var(--card-bg); border-radius: 24px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
@@ -59,47 +59,47 @@
         .banner-cali { background: #ef4444; }
         .banner-manizales { background: #3b82f6; }
         .banner-bogota { background: #2044a5; }
-        
+       
         .city-content { padding: 20px; }
         .activity-item { margin-bottom: 12px; border-left: 3px solid #cbd5e0; padding-left: 12px; }
         .activity-title { font-weight: bold; color: #051a39; font-size: 13px; display: block; }
-        
+       
         .val-yes { color: var(--color-yes); font-weight: 800; }
         .val-no { color: var(--color-no); font-weight: 800; }
-
+ 
         /* UNASSIGNED ACTIVITIES */
         .no-activities-wrapper { border-top: 1px solid #edf2f7; }
         .toggle-no-btn { width: 100%; background: #f7fafc; border: none; padding: 12px; color: #718096; font-size: 12px; font-weight: bold; cursor: pointer; }
         .no-content { padding: 15px; display: none; background: #fffafa; }
-
+ 
         .btn-main { background: #2d3748; color: white; border: none; padding: 16px; width: 100%; border-radius: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; }
-
+ 
         /* --- MOBILE VIEW --- */
         .mobile-only { display: none; }
-
+ 
         @media (max-width: 850px) {
             .top-row { display: none; }
             .mobile-only { display: block; margin-bottom: 20px; }
-            
+           
             .profile-mini-card { background: white; border-radius: 20px; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
             .mobile-logout { background: var(--danger); color: white; border: none; padding: 8px 15px; border-radius: 10px; font-weight: bold; }
-            
-            .dropdown-trigger { 
-                background: rgba(255,255,255,0.15); color: white; padding: 15px; border-radius: 15px; width: 100%; margin: 15px 0; cursor: pointer; border: 1px solid rgba(255,255,255,0.3); font-weight: bold; 
+           
+            .dropdown-trigger {
+                background: rgba(255,255,255,0.15); color: white; padding: 15px; border-radius: 15px; width: 100%; margin: 15px 0; cursor: pointer; border: 1px solid rgba(255,255,255,0.3); font-weight: bold;
             }
             .dropdown-content { background: white; border-radius: 15px; padding: 15px; display: none; margin-bottom: 15px; }
-            
+           
             .cities-grid { grid-template-columns: 1fr; }
-            .city-content { display: none; } 
-            .no-activities-wrapper { display: none; } 
-            
+            .city-content { display: none; }
+            .no-activities-wrapper { display: none; }
+           
             .city-card.active .city-content { display: block; }
             .city-card.active .no-activities-wrapper { display: block; }
-            
+           
             .city-banner::after { content: ' ▼'; font-size: 12px; position: absolute; right: 20px; }
             .city-card.active .city-banner::after { content: ' ▲'; }
         }
-
+ 
         .modal { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 2000; }
         .modal-content { background: white; width: 95%; height: 90%; border-radius: 15px; position: relative; }
         .close-pdf-btn { position: absolute; top: -15px; right: -15px; background: var(--danger); color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; }
@@ -107,17 +107,17 @@
     </style>
 </head>
 <body>
-
+ 
     <div id="loginSection" class="login-box">
-        <img src="https://www-s3-live.kent.edu/s3fs-root/s3fs-public/logo-color_2.png?VersionId=OcKaWld8QObkWdnw5xk7jKvg2ZESYU6q" alt="Logo" class="login-logo">
+        <img src="https://www-s3-live.kent.edu/s3fs-root/s3fs-public/logo-color_2.png?VersionId=OcKaWld8QObkWdnw5xk7jKvg2ZESYU6q%22 alt="Logo" class="login-logo">
         <h2 style="margin-bottom: 20px;">STEM Tour 2026</h2>
         <input type="email" id="emailInput" placeholder="Institutional Email">
         <button class="btn-main" style="background:var(--primary-bg)" onclick="startLogin()">Login</button>
         <p id="errorMsg" style="color:var(--danger); margin-top:15px; display:none;">User not found or connection error.</p>
     </div>
-
+ 
     <div id="dashboardSection" class="dashboard-container hidden">
-        
+       
         <div class="mobile-only">
             <div class="profile-mini-card">
                 <div>
@@ -126,16 +126,16 @@
                 </div>
                 <button class="mobile-logout" onclick="logout()">Logout</button>
             </div>
-            
+           
             <button class="dropdown-trigger" onclick="toggleDropdown('infoDropdown')">ℹ️ View Tour Details ▼</button>
             <div id="infoDropdown" class="dropdown-content">
                 <p class="stat-label">Cities</p>
                 <p class="stat-value" id="mStatCity" style="margin-bottom: 10px;">0</p>
-                <p class="stat-label">🗣️ Translator</p>
+                <p class="stat-label">🗣️ Translator service requested</p>
                 <p id="mStatTrans" style="font-weight: bold; color: var(--accent-blue);">-</p>
             </div>
         </div>
-
+ 
         <div class="top-row">
             <div class="card">
                 <p class="stat-label">User</p>
@@ -146,29 +146,29 @@
             <div class="card"><p class="stat-label">Cities</p><div class="stat-value" id="statCityCount">0</div></div>
             <div class="card"><p class="stat-label">Institution</p><div id="userInstShort" style="font-weight: bold; color: var(--accent-blue); font-size: 14px;">-</div></div>
             <div class="card" style="border: 2px solid var(--highlight-border);">
-                <p class="stat-label">🗣️ Translator</p>
+                <p class="stat-label">🗣️ Translator service requested</p>
                 <div id="translatorStatus" style="font-weight: bold; color: var(--accent-blue); font-size: 16px;">-</div>
             </div>
         </div>
-
+ 
         <div id="itineraryContent" class="cities-grid"></div>
-        
+       
         <div style="text-align: center; margin-top: 30px;">
             <button class="btn-main" style="max-width: 300px;" onclick="openPdf(1)">📖 Activity Guide (PDF)</button>
         </div>
     </div>
-
+ 
     <div id="pdfModal" class="modal hidden">
         <div class="modal-content"><button class="close-pdf-btn" onclick="closeModal()">✕</button><iframe id="pdfFrame" src=""></iframe></div>
     </div>
-
+ 
 <script>
     const SHEET_REGISTRO = "1_N6zhjoE1zCmLpZN3-DG1_uCvygdoDOISHwodqEJ5bs";
     const SHEET_COORDINACION = "1WKcECT2gPKtsN__0CGP5Rren9ZdlWgY7";
-    const PDF_URL_BASE = "https://drive.google.com/file/d/12tGm6rnFONa7b4qlFmvxCSQBNQRwE-Wl/preview";
-
+    const PDF_URL_BASE = "https://drive.google.com/file/d/1qNQKlb0gwg5N20E496Djx3i0qodmKQN0/preview";
+ 
     let userData = null;
-
+ 
     window.onload = function() {
         const savedEmail = localStorage.getItem('stem_user_email');
         if (savedEmail) {
@@ -176,28 +176,28 @@
             startLogin(true);
         }
     };
-
+ 
     function logout() { localStorage.removeItem('stem_user_email'); location.reload(); }
-
+ 
     function toggleDropdown(id) {
         const content = document.getElementById(id);
         content.style.display = content.style.display === 'block' ? 'none' : 'block';
     }
-
+ 
     function toggleCityCard(element) {
         if (window.innerWidth <= 850) {
             element.parentElement.classList.toggle('active');
         }
     }
-
+ 
     function toggleNoActivities(event, btn) {
-        event.stopPropagation(); 
+        event.stopPropagation();
         const content = btn.nextElementSibling;
         const isHidden = content.style.display === 'none' || content.style.display === '';
         content.style.display = isHidden ? 'block' : 'none';
         btn.innerText = isHidden ? '▲ Hide unassigned' : '▼ View unassigned activities';
     }
-
+ 
     async function fetchTable(sheetId, query, sheetName = "") {
         try {
             const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tq=${encodeURIComponent(query)}${sheetName ? `&sheet=${sheetName}` : ''}`;
@@ -206,73 +206,73 @@
             return JSON.parse(text.substring(47, text.length - 2)).table;
         } catch (e) { return null; }
     }
-
+ 
     async function startLogin(isAuto = false) {
         const email = document.getElementById('emailInput').value.toLowerCase().trim();
         if(!email) return;
-        
+       
         try {
             const regTable = await fetchTable(SHEET_REGISTRO, "SELECT A, C, D, F, K, L, M");
             const row = regTable.rows.find(r => r.c[3]?.v?.toLowerCase().trim() === email);
-            
+           
             if (!row) {
                 if(!isAuto) document.getElementById('errorMsg').style.display='block';
                 return;
             }
-            
+           
             localStorage.setItem('stem_user_email', email);
-            userData = { 
-                inst: row.c[0]?.v || "N/A", 
-                name: row.c[2]?.v || "User", 
-                email: email, 
-                cities: { Cali: row.c[4]?.v === 'Yes', Manizales: row.c[5]?.v === 'Yes', Bogota: row.c[6]?.v === 'Yes' } 
+            userData = {
+                inst: row.c[0]?.v || "N/A",
+                name: row.c[2]?.v || "User",
+                email: email,
+                cities: { Cali: row.c[4]?.v === 'Yes', Manizales: row.c[5]?.v === 'Yes', Bogota: row.c[6]?.v === 'Yes' }
             };
             renderDashboard(email);
         } catch (e) { console.error(e); }
     }
-
+ 
     async function renderDashboard(email) {
         document.getElementById('loginSection').classList.add('hidden');
         document.getElementById('dashboardSection').classList.remove('hidden');
-        
+       
         document.getElementById('userName').innerText = userData.name;
-        document.getElementById('userEmailDesktop').innerText = userData.email; 
+        document.getElementById('userEmailDesktop').innerText = userData.email;
         document.getElementById('userInstShort').innerText = userData.inst;
         document.getElementById('mobileUserName').innerText = userData.name;
-        document.getElementById('mobileUserEmail').innerText = userData.email; 
-
+        document.getElementById('mobileUserEmail').innerText = userData.email;
+ 
         const container = document.getElementById('itineraryContent');
         container.innerHTML = "<p style='color:white; grid-column: 1/-1; text-align:center;'>Loading itineraries...</p>";
-        
+       
         const citySpecs = [
-            { name: 'Cali', class: 'banner-cali', cols: [11, 7, 8, 9, 12], transCol: 10 }, 
-            { name: 'Manizales', class: 'banner-manizales', cols: [7, 8, 10, 11, 20], transCol: 12 }, 
-            { name: 'Bogota', class: 'banner-bogota', cols: [18, 7, 8, 20, 21], transCol: 9 }, 
+            { name: 'Cali', class: 'banner-cali', cols: [11, 7, 8, 9, 12], transCol: 10 },
+            { name: 'Manizales', class: 'banner-manizales', cols: [7, 8, 10, 11, 20], transCol: 12 },
+            { name: 'Bogota', class: 'banner-bogota', cols: [18, 7, 8, 20, 21], transCol: 9 },
         ];
-
+ 
         let finalTranslator = "Not assigned";
         let cityCount = 0;
-
+ 
         const cityPromises = citySpecs.map(async (city) => {
             if (userData.cities[city.name]) {
                 const cityTable = await fetchTable(SHEET_COORDINACION, "SELECT *", city.name);
                 if (!cityTable) return null;
-
+ 
                 const userRow = cityTable.rows.find(r => r.c[5]?.v?.toLowerCase().trim() === email);
-                
+               
                 if (userRow) {
                     cityCount++;
                     if (userRow.c[city.transCol]?.v) finalTranslator = userRow.c[city.transCol].v;
-
+ 
                     let yesHtml = "";
                     let noHtml = "";
-
+ 
                     city.cols.forEach(colIdx => {
                         const cellVal = userRow.c[colIdx]?.v;
                         const cellText = cellVal ? cellVal.toString().trim() : "";
                         if (cellText !== "") {
                             let title = cityTable.cols[colIdx].label || "Activity";
-                            title = title.replace(/\b(Yes|No)\b/gi, '').trim(); 
+                            title = title.replace(/\b(Yes|No)\b/gi, '').trim();
                             const isNo = cellText.toLowerCase() === 'no';
                             const colorClass = isNo ? "val-no" : (cellText.toLowerCase() === 'yes' ? "val-yes" : "");
                             const itemHtml = `<div class="activity-item"><span class="activity-title">${title}</span><span class="${colorClass}">${cellText}</span></div>`;
@@ -280,12 +280,12 @@
                             else yesHtml += itemHtml;
                         }
                     });
-
+ 
                     let cityCardHtml = `
                         <div class="city-card">
                             <div class="city-banner ${city.class}" onclick="toggleCityCard(this)">📍 ${city.name}</div>
                             <div class="city-content">${yesHtml || '<p style="color:gray; font-size:12px;">No major activities.</p>'}</div>`;
-                    
+                   
                     if (noHtml !== "") {
                         cityCardHtml += `
                             <div class="no-activities-wrapper">
@@ -299,16 +299,16 @@
             }
             return null;
         });
-
+ 
         const results = await Promise.all(cityPromises);
         container.innerHTML = results.filter(r => r !== null).join("") || "<p style='color:white; grid-column: 1/-1; text-align:center;'>No activities found.</p>";
-        
+       
         document.getElementById('statCityCount').innerText = cityCount;
         document.getElementById('mStatCity').innerText = cityCount;
         document.getElementById('translatorStatus').innerText = finalTranslator;
         document.getElementById('mStatTrans').innerText = finalTranslator;
     }
-
+ 
     function openPdf(p) { document.getElementById('pdfFrame').src = `${PDF_URL_BASE}#page=${p}`; document.getElementById('pdfModal').classList.remove('hidden'); }
     function closeModal() { document.getElementById('pdfModal').classList.add('hidden'); }
 </script>
